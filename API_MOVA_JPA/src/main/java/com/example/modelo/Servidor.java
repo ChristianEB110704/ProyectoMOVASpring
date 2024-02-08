@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="SERVIDORES")
-@NamedQuery(name="Servidore.findAll", query="SELECT s FROM Servidore s")
+@NamedQuery(name="Servidor.findAll", query="SELECT s FROM Servidor s")
 public class Servidor implements Serializable {
 	private static final long serialVersionUID = 1L;
 

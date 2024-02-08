@@ -11,7 +11,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name="HABILIDADES")
-@NamedQuery(name="Habilidade.findAll", query="SELECT h FROM Habilidade h")
+@NamedQuery(name="Habilidad.findAll", query="SELECT h FROM Habilidad h")
 public class Habilidad implements Serializable {
 	private static final long serialVersionUID = 1L;
 
