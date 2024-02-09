@@ -5,6 +5,8 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * The persistent class for the PERSONAJES database table.
@@ -31,7 +33,8 @@ public class Personaje implements Serializable {
 
 	//bi-directional many-to-one association to Historial
 	@OneToMany(mappedBy="personaje")
-	private List<Historial> historials;
+	@JsonIgnoreProperties({"personaje"})
+	private List<Historial> historial;
 
 	public Personaje() {
 	}
@@ -77,11 +80,11 @@ public class Personaje implements Serializable {
 	}
 
 	public List<Historial> getHistorials() {
-		return this.historials;
+		return this.historial;
 	}
 
 	public void setHistorials(List<Historial> historials) {
-		this.historials = historials;
+		this.historial = historials;
 	}
 
 	public Historial addHistorial(Historial historial) {

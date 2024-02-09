@@ -28,17 +28,13 @@ public class Controlador {
 	* Obtenemos todos los productos
 	* @return
 	*/
-	@GetMapping("/producto")
+	@GetMapping("/personajes")
 	public ResponseEntity<?> mostrarPersonajes(){
-		List<Personaje> result = personajeRepositorio.findAll();
+		List<Personaje> result = personajeRepositorio.mostrarPersonajes();
 		if(result.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(result);
 		
-	}
-	@GetMapping("/")
-	public ResponseEntity<?> prueba(){
-		return null;
 	}
 }

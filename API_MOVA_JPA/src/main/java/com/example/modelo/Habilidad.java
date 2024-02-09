@@ -2,6 +2,9 @@ package com.example.modelo;
 
 
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 
 
@@ -26,6 +29,7 @@ public class Habilidad implements Serializable {
 	//bi-directional many-to-one association to Personaje
 	@ManyToOne
 	@JoinColumn(name="id_personaje")
+	@JsonIgnoreProperties
 	private Personaje personaje;
 
 	public Habilidad() {
