@@ -6,11 +6,15 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.modelo.Historial;
 import com.example.modelo.HistorialRepositorio;
 import com.example.modelo.Personaje;
 import com.example.modelo.PersonajeRepositorio;
+import com.example.modelo.Usuario;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,10 +34,43 @@ public class Controlador {
 	*/
 	@GetMapping("/personajes")
 	public ResponseEntity<?> mostrarPersonajes(){
-		List<Personaje> result = personajeRepositorio.mostrarPersonajes();
+		List<Personaje> result = personajeRepositorio.findAll();
 		if(result.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
+		System.out.print(result);
+		return ResponseEntity.ok(result);
+		
+	}
+
+	@GetMapping("/historial")
+	public ResponseEntity<?> mostrarhistorial(){
+		List<Historial> result = historialRepositorio.findAll();
+		if(result.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		System.out.print(result);
+		return ResponseEntity.ok(result);
+		
+	}
+	@GetMapping("/historial/personajes/{usu}")
+	public ResponseEntity<?> personajesUtilizados(@PathVariable Long usu){
+		List<String> result = historialRepositorio.mostrarPersonajesUsuario(usu);
+		if(result.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		System.out.print(result);
+		return ResponseEntity.ok(result);
+		
+	}
+	
+	@GetMapping("/usuario/mayorkda")
+	public ResponseEntity<?> mayorkda(){
+		List<Usuario> result = historialRepositorio.usuariosMayorKDA();
+		if(result.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		System.out.print(result);
 		return ResponseEntity.ok(result);
 		
 	}

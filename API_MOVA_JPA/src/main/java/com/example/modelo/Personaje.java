@@ -5,7 +5,9 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 /**
@@ -15,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="PERSONAJES")
 @NamedQuery(name="Personaje.findAll", query="SELECT p FROM Personaje p")
+@JsonIgnoreProperties({"historial"})
 public class Personaje implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,13 +30,12 @@ public class Personaje implements Serializable {
 
 	private String rol;
 
-	//bi-directional many-to-one association to Habilidade
+	
 	@OneToOne(mappedBy="personaje")
 	private Habilidad habilidad;
 
 	//bi-directional many-to-one association to Historial
 	@OneToMany(mappedBy="personaje")
-	@JsonIgnoreProperties({"personaje"})
 	private List<Historial> historial;
 
 	public Personaje() {
@@ -79,23 +81,23 @@ public class Personaje implements Serializable {
 		this.habilidad = habilidades;
 	}
 
-	public List<Historial> getHistorials() {
+	public List<Historial> getHistorial() {
 		return this.historial;
 	}
 
-	public void setHistorials(List<Historial> historials) {
+	public void setHistorial(List<Historial> historials) {
 		this.historial = historials;
 	}
 
 	public Historial addHistorial(Historial historial) {
-		getHistorials().add(historial);
+		getHistorial().add(historial);
 		historial.setPersonaje(this);
 
 		return historial;
 	}
 
 	public Historial removeHistorial(Historial historial) {
-		getHistorials().remove(historial);
+		getHistorial().remove(historial);
 		historial.setPersonaje(null);
 
 		return historial;

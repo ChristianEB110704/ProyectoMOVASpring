@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 
 public interface PersonajeRepositorio extends JpaRepository<Personaje,Long>{
-    @Query("SELECT e FROM Personaje e")
-    List<Personaje> mostrarPersonajes();
+    
 	
 }

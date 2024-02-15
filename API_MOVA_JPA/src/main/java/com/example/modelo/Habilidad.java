@@ -3,6 +3,7 @@ package com.example.modelo;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
@@ -15,6 +16,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="HABILIDADES")
 @NamedQuery(name="Habilidad.findAll", query="SELECT h FROM Habilidad h")
+@JsonIgnoreProperties({"personaje"})
 public class Habilidad implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,9 +29,8 @@ public class Habilidad implements Serializable {
 	private String habDefinitiva;
 
 	//bi-directional many-to-one association to Personaje
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="id_personaje")
-	@JsonIgnoreProperties
 	private Personaje personaje;
 
 	public Habilidad() {

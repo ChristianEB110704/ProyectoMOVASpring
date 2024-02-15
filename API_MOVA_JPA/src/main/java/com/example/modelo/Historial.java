@@ -6,6 +6,10 @@ import jakarta.persistence.*;
 import java.sql.Time;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * The persistent class for the HISTORIAL database table.

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * The persistent class for the USUARIOS database table.
@@ -12,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name="USUARIOS")
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
+@JsonIgnoreProperties({"historial"})
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -58,23 +62,23 @@ public class Usuario implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public List<Historial> getHistorials() {
+	public List<Historial> getHistorial() {
 		return this.historial;
 	}
 
-	public void setHistorials(List<Historial> historials) {
+	public void setHistorial(List<Historial> historials) {
 		this.historial = historials;
 	}
 
 	public Historial addHistorial(Historial historial) {
-		getHistorials().add(historial);
+		getHistorial().add(historial);
 		historial.setUsuario(this);
 
 		return historial;
 	}
 
 	public Historial removeHistorial(Historial historial) {
-		getHistorials().remove(historial);
+		getHistorial().remove(historial);
 		historial.setUsuario(null);
 
 		return historial;

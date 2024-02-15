@@ -5,6 +5,9 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 /**
  * The persistent class for the SERVIDORES database table.
@@ -13,6 +16,7 @@ import java.util.List;
 @Entity
 @Table(name="SERVIDORES")
 @NamedQuery(name="Servidor.findAll", query="SELECT s FROM Servidor s")
+@JsonIgnoreProperties({"usuarios"})
 public class Servidor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -29,6 +33,7 @@ public class Servidor implements Serializable {
 
 	//bi-directional many-to-one association to Usuario
 	@OneToMany(mappedBy="servidor")
+	@JsonManagedReference
 	private List<Usuario> usuarios;
 
 	public Servidor() {
