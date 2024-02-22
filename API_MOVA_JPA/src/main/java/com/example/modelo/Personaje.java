@@ -73,11 +73,11 @@ public class Personaje implements Serializable {
 		this.rol = rol;
 	}
 
-	public Habilidad getHabilidades() {
+	public Habilidad getHabilidad() {
 		return this.habilidad;
 	}
 
-	public void setHabilidades(Habilidad habilidades) {
+	public void setHabilidad(Habilidad habilidades) {
 		this.habilidad = habilidades;
 	}
 

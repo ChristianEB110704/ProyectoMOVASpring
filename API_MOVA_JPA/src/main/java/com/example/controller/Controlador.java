@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.modelo.Habilidad;
+import com.example.modelo.HabilidadRepositorio;
 import com.example.modelo.Historial;
 import com.example.modelo.HistorialRepositorio;
 import com.example.modelo.Personaje;
@@ -23,6 +25,10 @@ import lombok.RequiredArgsConstructor;
 public class Controlador {
 	@Autowired
 	private HistorialRepositorio historialRepositorio;
+	
+	@Autowired
+	private HabilidadRepositorio habilidadRepositorio;
+	
 	@Autowired
 	private PersonajeRepositorio personajeRepositorio;
 	
@@ -53,6 +59,7 @@ public class Controlador {
 		return ResponseEntity.ok(result);
 		
 	}
+	
 	@GetMapping("/historial/personajes/{usu}")
 	public ResponseEntity<?> personajesUtilizados(@PathVariable Long usu){
 		List<String> result = historialRepositorio.mostrarPersonajesUsuario(usu);
@@ -68,6 +75,17 @@ public class Controlador {
 	public ResponseEntity<?> mayorkda(){
 		List<Usuario> result = historialRepositorio.usuariosMayorKDA();
 		if(result.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		System.out.print(result);
+		return ResponseEntity.ok(result);
+		
+	}
+	
+	@GetMapping("/habilidad/{hab}")
+	public ResponseEntity<?> habilidad(@PathVariable Long hab){
+		Habilidad result = habilidadRepositorio.buscar1(hab);
+		if(result.equals(null)) {
 			return ResponseEntity.notFound().build();
 		}
 		System.out.print(result);

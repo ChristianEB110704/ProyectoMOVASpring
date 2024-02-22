@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${titulo}"></title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+	
+	<header th:replace="~{layouts/layout :: encabezado}"></header>
+
+	<div class="container">
+		<h1
+			class="text-secondary border border-success border-top-0 border-left-0 border-right-0"
+			th:text="${titulo}"></h1>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Descripcion</th>
+					<th>Rol</th>
+					<th>Habilidad</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="personaje: ${personajes}">
+					<td th:text="${personaje.id}"></td>
+					<td th:text="${personaje.nombre}"></td>
+					<td th:text="${personaje.descripcion}"></td>
+					<td th:text="${personaje.rol}"></td>
+					<td><a th:href="@{/habilidad/}+${personaje.habilidad.id}"  class="btn btn-dark" th:text="${personaje.habilidad.habDefinitiva}"></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
