@@ -1,10 +1,14 @@
 package com.example.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.service.ServicioIMPL;
 
@@ -57,5 +61,28 @@ public class Controlador {
 		model.addAttribute("usuarios",service.usuariosMayorKDA());
 		return "usuariosKDA";
 	}
-//	nombrePersonajesUsuario
+	
+	
+	
+	
+	
+	@GetMapping("/login")
+	public String mostrarLogin(@RequestParam(value="error",required=false) String error,Model model,Principal principal,RedirectAttributes attribute,
+			@RequestParam(value="logout",required=false) String logout) {
+		
+		if(error!=null) {
+			model.addAttribute("error","Error de acceso: Usuario y/o contraseña incorrectos");
+			
+		}
+		
+		if(principal!=null) {
+			attribute.addFlashAttribute("warning","Atencion: Ya has iniciado sesion anteriormente");
+			return "redirect:/";
+		}
+		
+		if(logout!=null) {
+			model.addAttribute("success","Exito: Se ha cerrado la sesion con exito");
+		}
+		return "login";
+	}
 }

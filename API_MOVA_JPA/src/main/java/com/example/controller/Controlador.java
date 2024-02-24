@@ -75,7 +75,7 @@ public class Controlador {
 		
 	}
 	
-	@GetMapping("/usuario/mayorkda")
+	@GetMapping("/usuario/mayorkda") //+
 	public ResponseEntity<?> mayorkda(){
 		List<Usuario> result = historialRepositorio.usuariosMayorKDA();
 		if(result.isEmpty()) {

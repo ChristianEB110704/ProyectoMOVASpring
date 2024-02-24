@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${titulo}"></title>
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" integrity="sha384-oOE/3m0LUMPub4kaC09mrdEhIc+e3exm4xOGxAmuFXhBNF4hcg/6MiAXAf5p0P56" crossorigin="anonymous"/>
+<style>
+	body {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+        }
+</style>
+</head>
+<body th:style="'background: url(/images/logoLiga.png) no-repeat fixed center/cover;'">
+
+	<div class="container">
+		
+		
+
+		
+		 <form class="form-signin" method="post" th:action="@{/login}">
+        <h2 class="form-signin-heading">Inicia Sesión</h2>
+        <p>
+          <label for="username" class="sr-only">Nombre de Usuario:</label>
+          <input type="text" id="username" name="username" class="form-control" placeholder="Nombre de usuario" required autofocus>
+        </p>
+        <p>
+          <label for="password" class="sr-only">Contraseña:</label>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
+        </p>
+<input name="_csrf" type="hidden" value="-dNcK75C6Lv9awWZL0BF1_PiQiBJu8YMILWOoSh1bc6-ogrowOJuSN8n39jQCT34Hm1xs5CGb0F_j_8hQ423kh1DDPaMlz3e" />
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesion</button>
+      </form>
+      
+      
+      <!--Mensajes del login-->
+      <div class="alert alert-success alert-dismissable" th:if="${success !=null}">
+		  <label th:text="${success}"></label>
+	  </div>
+	  <div class="alert alert-danger alert-dismissable" th:if="${error !=null}">
+		  <label th:text="${error}"></label>
+	  </div>
+	  <div class="alert alert-warning alert-dismissable" th:if="${warning !=null}">
+		  <label th:text="${warning}"></label>
+	  </div>
+	  
+		
+		
+		</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
