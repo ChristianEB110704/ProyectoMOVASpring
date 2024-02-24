@@ -17,6 +17,7 @@ import com.example.modelo.HistorialRepositorio;
 import com.example.modelo.Personaje;
 import com.example.modelo.PersonajeRepositorio;
 import com.example.modelo.Usuario;
+import com.example.modelo.UsuarioRepositorio;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,13 +33,16 @@ public class Controlador {
 	@Autowired
 	private PersonajeRepositorio personajeRepositorio;
 	
+	@Autowired
+	private UsuarioRepositorio usuarioRepositorio;
+	
 	
 	//Dentro de la carpeta resources está data.sql
 	/**
 	* Obtenemos todos los productos
 	* @return
 	*/
-	@GetMapping("/personajes")
+	@GetMapping("/personajes") //+
 	public ResponseEntity<?> mostrarPersonajes(){
 		List<Personaje> result = personajeRepositorio.findAll();
 		if(result.isEmpty()) {
@@ -49,7 +53,7 @@ public class Controlador {
 		
 	}
 
-	@GetMapping("/historial")
+	@GetMapping("/historial") //+
 	public ResponseEntity<?> mostrarhistorial(){
 		List<Historial> result = historialRepositorio.findAll();
 		if(result.isEmpty()) {
@@ -60,7 +64,7 @@ public class Controlador {
 		
 	}
 	
-	@GetMapping("/historial/personajes/{usu}")
+	@GetMapping("/historial/personajes/{usu}") //+
 	public ResponseEntity<?> personajesUtilizados(@PathVariable Long usu){
 		List<String> result = historialRepositorio.mostrarPersonajesUsuario(usu);
 		if(result.isEmpty()) {
@@ -82,7 +86,18 @@ public class Controlador {
 		
 	}
 	
-	@GetMapping("/habilidad/{hab}")
+	@GetMapping("/usuarios") //+
+	public ResponseEntity<?> usuarios(){
+		List<Usuario> result = usuarioRepositorio.findAll();
+		if(result.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		System.out.print(result);
+		return ResponseEntity.ok(result);
+		
+	}
+	
+	@GetMapping("/habilidad/{hab}") //+
 	public ResponseEntity<?> habilidad(@PathVariable Long hab){
 		Habilidad result = habilidadRepositorio.buscar1(hab);
 		if(result.equals(null)) {

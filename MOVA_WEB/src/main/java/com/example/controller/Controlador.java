@@ -33,4 +33,29 @@ public class Controlador {
 		model.addAttribute("habilidad",service.obtenerHabilidad(id));
 		return "habilidad";
 	}
+	
+	@GetMapping(value="/listadoU")
+	public String listarPerUsu(Model model) {
+		model.addAttribute("titulo","Listado de usuarios");
+		model.addAttribute("usuarios",service.mostrarUsuarios());
+		return "listado/usuario";
+	}
+	
+	@GetMapping(value="/personajes/{id}")
+	public String listarPerUsu(Model model,@PathVariable Long id) {
+		model.addAttribute("titulo","Nombre personajes de 1 usuario");
+		if(service.nombrePersonajesUsuario(id).size()<=0) {
+			model.addAttribute("error","No se ha encontrado ninguna partida en el historial");
+		}
+		model.addAttribute("nPersonajes",service.nombrePersonajesUsuario(id));
+		return "personajeUsu";
+	}
+	
+	@GetMapping(value="/usuarios/mayorKDA")
+	public String listarUsuKDA(Model model) {
+		model.addAttribute("titulo","Nombre personajes de 1 usuario");
+		model.addAttribute("usuarios",service.usuariosMayorKDA());
+		return "usuariosKDA";
+	}
+//	nombrePersonajesUsuario
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${titulo}"></title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+	
+	<header th:replace="~{layouts/layout :: encabezado}"></header>
+
+	<div class="container">
+		<h1
+			class="text-secondary border border-success border-top-0 border-left-0 border-right-0"
+			th:text="${titulo}"></h1>
+		<a class="btn btn-secondary" th:href="@{/usuarios/mayorKDA}">Heroes del KDA</a>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Nivel</th>
+					<th>servidor</th>
+					<!--Quiero poder eliminar si estoy en modo admin, sino tendremos una pestaña llamada historial propio-->
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="usu: ${usuarios}">
+					<td><a th:href="@{/personajes/}+${usu.id}" class="btn btn-info" th:text="${usu.id}"></a></td>
+					<td th:text="${usu.nombre}"></td>
+					<td th:text="${usu.nivel}"></td>
+					<td th:text="${usu.servidor.nombreServidor}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

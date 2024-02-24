@@ -30,7 +30,7 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<Historial> historial;
 
-	//bi-directional many-to-one association to Servidore
+	//bi-directional many-to-one association to Servidor
 	@ManyToOne
 	@JoinColumn(name="servidor")
 	private Servidor servidor;
@@ -84,12 +84,12 @@ public class Usuario implements Serializable {
 		return historial;
 	}
 
-	public Servidor getServidore() {
+	public Servidor getServidor() {
 		return this.servidor;
 	}
 
-	public void setServidore(Servidor servidore) {
-		this.servidor = servidore;
+	public void setServidor(Servidor servidor) {
+		this.servidor = servidor;
 	}
 
 }
