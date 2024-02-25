@@ -14,28 +14,41 @@
 		<h1
 			class="text-secondary border border-success border-top-0 border-left-0 border-right-0"
 			th:text="${titulo}"></h1>
-		<a class="btn btn-secondary" th:href="@{/usuarios/mayorKDA}">Heroes del KDA</a>
+			
+		<div  th:if="${partidas != null and partidas.size() > 0}">
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>Nombre</th>
-					<th>Nivel</th>
-					<th>servidor</th>
+					<th>Personaje</th>
+					<th>KDA</th>
+					<th>Linea</th>
+					<th>Duracion</th>
+					<th>Fecha</th>
 					<!--Quiero poder eliminar si estoy en modo admin, sino tendremos una pestaña llamada historial propio-->
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="usu: ${usuarios}">
-					<td><a th:href="@{/personajes/}+${usu.id}" class="btn btn-info" th:text="${usu.id}"></a></td>
-					<td th:text="${usu.nombre}"></td>
-					<td th:text="${usu.nivel}"></td>
-					<td th:text="${usu.servidor.nombreServidor}"></td>
-				</tr>
+				<div th:each="partida: ${partidas}">
+					<div th:if="${partida.resultado=='V'}">
+						<tr style="background-color: greenyellow;">
+					</div>
+					<div th:if="${partida.resultado=='D'}">
+						<tr style="background-color: red;">
+					</div>
+						<td th:text="${partida.personaje.nombre}"></td>
+						<td th:text="${partida.kda}"></td>
+						<td th:text="${partida.linea}"></td>
+						<td th:text="${partida.duracion}"></td>
+						<td th:text="${partida.fecha}"></td>
+					</tr>
+				</div>
 			</tbody>
 		</table>
-		
+		</div>
 		<a class="btn btn-warning" th:href="@{/}">Volver al incio</a>
+	</div>
+	<div th:if="${partidas == null or partidas.size() == 0}">
+	    <h2 class="text-center text-primary">Aun no has jugado ninguna partida</h2>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script

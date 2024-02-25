@@ -14,4 +14,6 @@ public class UsuarioDTO {
 	private String nombre;
 	
 	private ServidorDTO servidor;
+	
+	private String password;
 }

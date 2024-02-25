@@ -1,15 +1,21 @@
 package com.example.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.DTO.HistorialDTO;
 import com.example.service.ServicioIMPL;
 
 @Controller
@@ -17,6 +23,9 @@ public class Controlador {
 	@Autowired
 	private ServicioIMPL service;
 	
+	@Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+	  
 	
 	@GetMapping(value="/")
 	public String index(Model model) {
@@ -62,6 +71,17 @@ public class Controlador {
 		return "usuariosKDA";
 	}
 	
+	@GetMapping(value="/historial")
+	public String historial(Model model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String nombreUsuario = authentication.getName();
+	    List<HistorialDTO> historial=service.mostrarHistorial(nombreUsuario);
+		model.addAttribute("titulo","Historial de partidas");
+		model.addAttribute("partidas",historial);
+		return "listado/historial";
+	}
+	
 	
 	
 	
@@ -69,7 +89,8 @@ public class Controlador {
 	@GetMapping("/login")
 	public String mostrarLogin(@RequestParam(value="error",required=false) String error,Model model,Principal principal,RedirectAttributes attribute,
 			@RequestParam(value="logout",required=false) String logout) {
-		
+
+        System.out.print(passwordEncoder.encode("EuroGamer"));
 		if(error!=null) {
 			model.addAttribute("error","Error de acceso: Usuario y/o contraseña incorrectos");
 			
@@ -85,4 +106,21 @@ public class Controlador {
 		}
 		return "login";
 	}
+
+	@PostMapping(name="/login")
+    public String login(@RequestParam String username, @RequestParam String password) {
+		System.out.print("KASDJFASDNFLASDNF");
+        // Obtener la contraseña almacenada en la base de datos para el usuario
+        String storedPassword = service.getStoredPasswordByUsername(username);
+        String encryptedPassword = passwordEncoder.encode(password);
+        // Comprobar si la contraseña proporcionada coincide con la almacenada
+        System.out.println(passwordEncoder.encode(password));
+        if (encryptedPassword.equals(storedPassword)) {
+            // Autenticación exitosa, redirigir a la página principal o a una página segura
+            return "redirect:/";
+        } else {
+            // Autenticación fallida, redirigir a la página de inicio de sesión con un mensaje de error
+            return "redirect:/login?error";
+        }
+    }
 }

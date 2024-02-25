@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.modelo.Habilidad;
@@ -35,8 +35,8 @@ public class Controlador {
 	
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
-	
-	
+
+    private BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
 	//Dentro de la carpeta resources está data.sql
 	/**
 	* Obtenemos todos los productos
@@ -60,6 +60,16 @@ public class Controlador {
 			return ResponseEntity.notFound().build();
 		}
 		System.out.print(result);
+		return ResponseEntity.ok(result);
+		
+	}
+	
+	@GetMapping("/historial/{nombre}") //+
+	public ResponseEntity<?> mostrarhistorialUsuario(@PathVariable String nombre){
+		List<Historial> result = historialRepositorio.historialUsuario(nombre);
+		if(result.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
 		return ResponseEntity.ok(result);
 		
 	}
@@ -88,6 +98,7 @@ public class Controlador {
 	
 	@GetMapping("/usuarios") //+
 	public ResponseEntity<?> usuarios(){
+		actualizarContrasenias();
 		List<Usuario> result = usuarioRepositorio.findAll();
 		if(result.isEmpty()) {
 			return ResponseEntity.notFound().build();
@@ -106,5 +117,15 @@ public class Controlador {
 		System.out.print(result);
 		return ResponseEntity.ok(result);
 		
+	}
+	public void actualizarContrasenias() {
+	    List<Usuario> usuarios = usuarioRepositorio.findAll(); // Obtén todos los usuarios de tu base de datos
+	    if(usuarios.get(0).getNombre().equals(usuarios.get(0).getPassword())) {
+		    for (Usuario usuario : usuarios) {
+		        String nuevaContraseñaEncriptada = passwordEncoder.encode(usuario.getPassword());
+		        usuario.setPassword(nuevaContraseñaEncriptada);
+		    }
+	    }
+	    usuarioRepositorio.saveAll(usuarios); // Guarda los usuarios actualizados en la base de datos
 	}
 }

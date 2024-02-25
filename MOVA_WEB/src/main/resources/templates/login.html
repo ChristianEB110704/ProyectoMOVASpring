@@ -14,14 +14,14 @@
         }
 </style>
 </head>
-<body th:style="'background: url(/images/logoLiga.png) no-repeat fixed center/cover;'">
+<body>
 
 	<div class="container">
 		
 		
 
 		
-		 <form class="form-signin" method="post" th:action="@{/login}">
+	 	<form class="form-signin" method="post" th:action="@{/login}">
         <h2 class="form-signin-heading">Inicia Sesión</h2>
         <p>
           <label for="username" class="sr-only">Nombre de Usuario:</label>
@@ -31,8 +31,7 @@
           <label for="password" class="sr-only">Contraseña:</label>
           <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
         </p>
-<input name="_csrf" type="hidden" value="-dNcK75C6Lv9awWZL0BF1_PiQiBJu8YMILWOoSh1bc6-ogrowOJuSN8n39jQCT34Hm1xs5CGb0F_j_8hQ423kh1DDPaMlz3e" />
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesion</button>
+        <input class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesion</input>
       </form>
       
       

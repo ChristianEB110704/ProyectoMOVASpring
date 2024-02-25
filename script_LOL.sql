@@ -1,4 +1,4 @@
--- DROP DATABASE MOVA;
+ DROP DATABASE MOVA;
 CREATE DATABASE MOVA;
 use MOVA;
 
@@ -30,14 +30,14 @@ CREATE TABLE SERVIDORES(
 );
 
 
-create table USUARIOS(
-	id INT primary key,
-    nombre varchar(20),
-    servidor int,
-    nivel int,
+CREATE TABLE USUARIOS (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(20),
+    password VARCHAR(64), -- Almacenará el hash seguro de la contraseña
+    servidor INT,
+    nivel INT,
     
     FOREIGN KEY (servidor) REFERENCES SERVIDORES(id)
-    
 );
 
 create table HISTORIAL(
@@ -369,89 +369,90 @@ INSERT INTO SERVIDORES (id, nombre_servidor, direccion_ip, descripcion) VALUES
 (5, 'LAN Server', 'lan.leagueoflegends.com', 'Latin America North server ');
 
 -- Users for NA Server
-INSERT INTO USUARIOS (id, nombre, servidor, nivel) VALUES
-(1, 'Summoner1', 1, 30),
-(2, 'Player123', 1, 25),
-(3, 'GamerGirl', 1, 28),
-(4, 'ProPlayer', 1, 35),
-(5, 'CasualGamer', 1, 18);
+INSERT INTO USUARIOS (id, nombre, password, servidor, nivel) VALUES
+(1, 'Summoner1', 'Summoner1', 1, 30),
+(2, 'Player123', 'Player123', 1, 25),
+(3, 'GamerGirl', 'GamerGirl', 1, 28),
+(4, 'ProPlayer', 'ProPlayer', 1, 35),
+(5, 'CasualGamer', 'CasualGamer', 1, 18);
 -- ... Continue adding more users for NA Server
 
 -- Users for EUW Server
-INSERT INTO USUARIOS (id, nombre, servidor, nivel) VALUES
-(6, 'EuroGamer', 2, 32),
-(7, 'LeagueMaster', 2, 40),
-(8, 'SwiftStriker', 2, 22),
-(9, 'VictoriousOne', 2, 37),
-(10, 'CasualEUW', 2, 15);
+INSERT INTO USUARIOS (id, nombre, password, servidor, nivel) VALUES
+(6, 'EuroGamer', 'EuroGamer', 2, 32),
+(7, 'LeagueMaster', 'LeagueMaster', 2, 40),
+(8, 'SwiftStriker', 'SwiftStriker', 2, 22),
+(9, 'VictoriousOne', 'VictoriousOne', 2, 37),
+(10, 'CasualEUW', 'CasualEUW', 2, 15);
 -- ... Continue adding more users for EUW Server
 
 -- Users for KR Server
-INSERT INTO USUARIOS (id, nombre, servidor, nivel) VALUES
-(11, 'KoreanChallenger', 3, 50),
-(12, 'StarGazer', 3, 28),
-(13, 'FlashMaster', 3, 42),
-(14, 'KPopGamer', 3, 36),
-(15, 'CasualKR', 3, 20);
+INSERT INTO USUARIOS (id, nombre, password, servidor, nivel) VALUES
+(11, 'KoreanChallenger', 'KoreanChallenger', 3, 50),
+(12, 'StarGazer', 'StarGazer', 3, 28),
+(13, 'FlashMaster', 'FlashMaster', 3, 42),
+(14, 'KPopGamer', 'KPopGamer', 3, 36),
+(15, 'CasualKR', 'CasualKR', 3, 20);
 -- ... Continue adding more users for KR Server
 
 -- Users for BR Server
-INSERT INTO USUARIOS (id, nombre, servidor, nivel) VALUES
-(16, 'BrasilGamer', 4, 27),
-(17, 'SambaStriker', 4, 33),
-(18, 'CarnavalChampion', 4, 45),
-(19, 'JungleKingBR', 4, 31),
-(20, 'CasualBR', 4, 23);
+INSERT INTO USUARIOS (id, nombre, password, servidor, nivel) VALUES
+(16, 'BrasilGamer', 'BrasilGamer', 4, 27),
+(17, 'SambaStriker', 'SambaStriker', 4, 33),
+(18, 'CarnavalChampion', 'CarnavalChampion', 4, 45),
+(19, 'JungleKingBR', 'JungleKingBR', 4, 31),
+(20, 'CasualBR', 'CasualBR', 4, 23);
 -- ... Continue adding more users for BR Server
 
 -- Users for LAN Server
-INSERT INTO USUARIOS (id, nombre, servidor, nivel) VALUES
-(21, 'LatinoGamer', 5, 29),
-(22, 'SalsaMaster', 5, 38),
-(23, 'FiestaChampion', 5, 44),
-(24, 'LANLegend', 5, 26),
-(25, 'CasualLAN', 5, 19);
+INSERT INTO USUARIOS (id, nombre, password, servidor, nivel) VALUES
+(21, 'LatinoGamer', 'LatinoGamer', 5, 29),
+(22, 'SalsaMaster', 'SalsaMaster', 5, 38),
+(23, 'FiestaChampion', 'FiestaChampion', 5, 44),
+(24, 'LANLegend', 'LANLegend', 5, 26),
+(25, 'CasualLAN', 'CasualLAN', 5, 19);
 
 -- Users for NA Server
-INSERT INTO USUARIOS (id, nombre, servidor, nivel) VALUES
-(26, 'EliteGamerNA', 1, 39),
-(27, 'StrategicPlayer', 1, 32),
-(28, 'RapidReaction', 1, 24),
-(29, 'NAChampion', 1, 41),
-(30, 'CasualNA2', 1, 17);
+INSERT INTO USUARIOS (id, nombre, password, servidor, nivel) VALUES
+(26, 'EliteGamerNA', 'EliteGamerNA', 1, 39),
+(27, 'StrategicPlayer', 'StrategicPlayer', 1, 32),
+(28, 'RapidReaction', 'RapidReaction', 1, 24),
+(29, 'NAChampion', 'NAChampion', 1, 41),
+(30, 'CasualNA2', 'CasualNA2', 1, 17);
 
 -- Users for EUW Server
-INSERT INTO USUARIOS (id, nombre, servidor, nivel) VALUES
-(31, 'SwiftSpectre', 2, 36),
-(32, 'EUWChallenger', 2, 48),
-(33, 'MysticMage', 2, 27),
-(34, 'EUWPro', 2, 43),
-(35, 'CasualEUW2', 2, 21);
+INSERT INTO USUARIOS (id, nombre, password, servidor, nivel) VALUES
+(31, 'SwiftSpectre', 'SwiftSpectre', 2, 36),
+(32, 'EUWChallenger', 'EUWChallenger', 2, 48),
+(33, 'MysticMage', 'MysticMage', 2, 27),
+(34, 'EUWPro', 'EUWPro', 2, 43),
+(35, 'CasualEUW2', 'CasualEUW2', 2, 21);
 
 -- Users for KR Server
-INSERT INTO USUARIOS (id, nombre, servidor, nivel) VALUES
-(36, 'KoreanStrategist', 3, 34),
-(37, 'ShadowBladeKR', 3, 46),
-(38, 'HighVelocity', 3, 29),
-(39, 'KRDominator', 3, 38),
-(40, 'CasualKR2', 3, 25);
+INSERT INTO USUARIOS (id, nombre, password, servidor, nivel) VALUES
+(36, 'KoreanStrategist', 'KoreanStrategist', 3, 34),
+(37, 'ShadowBladeKR', 'ShadowBladeKR', 3, 46),
+(38, 'HighVelocity', 'HighVelocity', 3, 29),
+(39, 'KRDominator', 'KRDominator', 3, 38),
+(40, 'CasualKR2', 'CasualKR2', 3, 25);
 
 -- Users for BR Server
-INSERT INTO USUARIOS (id, nombre, servidor, nivel) VALUES
-(41, 'BrazilianLegend', 4, 37),
-(42, 'SambaSorcerer', 4, 42),
-(43, 'BRWarrior', 4, 31),
-(44, 'CarnavalQueen', 4, 49),
-(45, 'CasualBR2', 4, 22);
+INSERT INTO USUARIOS (id, nombre, password, servidor, nivel) VALUES
+(41, 'BrazilianLegend', 'BrazilianLegend', 4, 37),
+(42, 'SambaSorcerer', 'SambaSorcerer', 4, 42),
+(43, 'BRWarrior', 'BRWarrior', 4, 31),
+(44, 'CarnavalQueen', 'CarnavalQueen', 4, 49),
+(45, 'CasualBR2', 'CasualBR2', 4, 22);
 
 -- Users for LAN Server
-INSERT INTO USUARIOS (id, nombre, servidor, nivel) VALUES
-(46, 'LatinoGamingMaster', 5, 33),
-(47, 'FiestaFury', 5, 40),
-(48, 'DanceDynasty', 5, 28),
-(49, 'LANConqueror', 5, 45),
-(50, 'CasualLAN2', 5, 18);
--- Match history for User 1
+INSERT INTO USUARIOS (id, nombre, password, servidor, nivel) VALUES
+(46, 'LatinoGamingMaster', 'LatinoGamingMaster', 5, 33),
+(47, 'FiestaFury', 'FiestaFury', 5, 40),
+(48, 'DanceDynasty', 'DanceDynasty', 5, 28),
+(49, 'LANConqueror', 'LANConqueror', 5, 45),
+(50, 'CasualLAN2', 'CasualLAN2', 5, 18);
+
+
 INSERT INTO HISTORIAL (id, id_usuario, id_personaje, kda, resultado, fecha, duracion, linea) VALUES
 (1, 1, 1, 10, 'V', '2024-01-15', '00:25:30', 'Superior'),
 (2, 1, 3, 5, 'D', '2024-01-17', '00:20:45', 'Inferior'),

@@ -25,6 +25,8 @@ public class Usuario implements Serializable {
 	private int nivel;
 
 	private String nombre;
+	
+	private String password;
 
 	//bi-directional many-to-one association to Historial
 	@OneToMany(mappedBy="usuario")
@@ -90,6 +92,14 @@ public class Usuario implements Serializable {
 
 	public void setServidor(Servidor servidor) {
 		this.servidor = servidor;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

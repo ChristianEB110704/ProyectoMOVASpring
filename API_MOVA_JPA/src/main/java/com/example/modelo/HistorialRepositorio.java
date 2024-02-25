@@ -15,5 +15,7 @@ public interface HistorialRepositorio extends JpaRepository<Historial,Long>{
 	@Query("SELECT H.usuario FROM Historial H WHERE H.kda = (SELECT MAX(H2.kda) FROM Historial H2)")
 	List<Usuario> usuariosMayorKDA();
 	
+	@Query("SELECT H FROM Historial H WHERE H.usuario.nombre = ?1")
+	List<Historial> historialUsuario(String nombre);
 	
 }
