@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${titulo}">Insert title here</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+		<header th:replace="~{layouts/layout :: encabezado}"></header>
+	<div class="container">
+		<h1 th:text="${titulo}"></h1>
+		</div>
+		<form th:action="@{/form}" method="post">
+		    <div class="form-group row"> 
+		        <label class="col-sm-2 col-form-label">Nombre</label>
+		        <div class="col-sm-6">
+		            <input type="text" name="nombre" /> <!-- Cambiado a 'name' en lugar de 'th:field' -->
+		        </div>
+		    </div>
+		
+		    <div class="form-group row">
+		        <label class="col-sm-2 col-form-label">Servidor</label>
+		        <select name="idServidor"> <!-- Cambiado a 'name' en lugar de 'th:field' -->
+		            <option th:each="s : ${servidores}" th:value="${s.id}" th:text="${s.nombreServidor}"></option>
+		        </select>
+		    </div>
+		
+		    <div class="form-group row">
+		        <label class="col-sm-2 col-form-label">Password</label>
+		        <div class="col-sm-6">
+		            <input type="password" name="password" /> <!-- Cambiado a 'name' en lugar de 'th:field' -->
+		        </div>
+		    </div>
+		
+		    <div class="form-group row">
+		        <div class="col-sm-6">
+		            <button type="submit">Guardar</button>
+		        </div>
+		    </div>
+		</form>
+
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	</div>
+</body>
+</html>

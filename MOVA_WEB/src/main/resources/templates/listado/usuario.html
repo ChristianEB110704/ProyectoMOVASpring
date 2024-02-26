@@ -21,7 +21,10 @@
 					<th>ID</th>
 					<th>Nombre</th>
 					<th>Nivel</th>
-					<th>servidor</th>
+					<th>Servidor</th>
+					<div sec:authorize="hasRole('ADMIN')">
+					<th>Eliminar</th>
+					</div>
 					<!--Quiero poder eliminar si estoy en modo admin, sino tendremos una pestaña llamada historial propio-->
 				</tr>
 			</thead>
@@ -31,6 +34,9 @@
 					<td th:text="${usu.nombre}"></td>
 					<td th:text="${usu.nivel}"></td>
 					<td th:text="${usu.servidor.nombreServidor}"></td>
+					<div sec:authorize="hasRole('ADMIN')">
+					<td><a class="btn btn-danger" th:href="@{/borrar/}+${usu.id}">Borrar usuario</a></td>
+					</div>
 				</tr>
 			</tbody>
 		</table>

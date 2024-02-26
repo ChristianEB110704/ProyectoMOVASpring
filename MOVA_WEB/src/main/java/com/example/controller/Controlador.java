@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,14 +10,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.DTO.HistorialDTO;
+import com.example.DTO.ServidorDTO;
+import com.example.DTO.UsuarioDTO;
 import com.example.service.ServicioIMPL;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class Controlador {
@@ -82,9 +89,45 @@ public class Controlador {
 		return "listado/historial";
 	}
 	
+	@RequestMapping(value="/form")
+	public String crear(Map<String,Object>model) {	
+		//Añade los valores a la pagina para que esta lo rellene
+		List<ServidorDTO> serv=service.mostrarServidores();
+		//paso datos a la vista
+		model.put("servidores", serv);
+		model.put("titulo", "Crear Usuario");
+		return "form";
+	}
 	
-	
-	
+	@PostMapping(value="/form")
+	public String guardar(@RequestParam Integer idServidor,@Valid 
+            @RequestParam String nombre, 
+            @RequestParam String password,  Model model) {
+       List<UsuarioDTO>users=service.mostrarUsuarios();
+       UsuarioDTO usuario=new UsuarioDTO();
+       int d=users.size();
+       int sol=users.get(d-1).getId()+1;
+       usuario.setId(sol);
+       usuario.setNivel(0);
+       usuario.setServidor(convert(idServidor));
+       usuario.setNombre(nombre);
+       usuario.setPassword(password);
+       service.agregarUsuario(usuario);
+       return "redirect:/";
+   }
+
+	@GetMapping(value="/borrar/{id}")
+	public String borrar(@PathVariable Long id) {
+       service.borrarUsuario(id);
+       return "redirect:/listadoU";
+   }
+	public ServidorDTO convert(Integer id) {
+		List<ServidorDTO> servidores = service.mostrarServidores();
+        return servidores.stream()
+                .filter(servidor -> servidor.getId()==id)
+                .findFirst()
+                .orElse(null);
+	}
 	
 	@GetMapping("/login")
 	public String mostrarLogin(@RequestParam(value="error",required=false) String error,Model model,Principal principal,RedirectAttributes attribute,
@@ -109,7 +152,6 @@ public class Controlador {
 
 	@PostMapping(name="/login")
     public String login(@RequestParam String username, @RequestParam String password) {
-		System.out.print("KASDJFASDNFLASDNF");
         // Obtener la contraseña almacenada en la base de datos para el usuario
         String storedPassword = service.getStoredPasswordByUsername(username);
         String encryptedPassword = passwordEncoder.encode(password);

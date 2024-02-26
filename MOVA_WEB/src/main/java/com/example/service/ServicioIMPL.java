@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import com.example.DTO.HabilidadDTO;
 import com.example.DTO.HistorialDTO;
 import com.example.DTO.PersonajeDTO;
+import com.example.DTO.ServidorDTO;
 import com.example.DTO.UsuarioDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -92,5 +93,19 @@ public class ServicioIMPL {
 	        }
 	    }
 	}
+	public void agregarUsuario(UsuarioDTO usuario) {
+		restTemplate.postForObject(basePath + "/agregarUsuario",usuario,UsuarioDTO.class);
+		
+	}
+	public List<ServidorDTO> mostrarServidores() {
+		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		ServidorDTO[] response=restTemplate.getForObject(basePath+"/servidores",ServidorDTO[].class);
+		return Arrays.asList(response);
+	}
+	
+	public void  borrarUsuario(Long id){
+	    restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+	    restTemplate.delete(basePath + "/usuario/"+id);
+	}
 }
-////usuario/mayorkda
+/////usuario/{id}
